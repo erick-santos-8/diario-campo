@@ -13,7 +13,7 @@ import { adicionarAnotacao } from "../actions/anotacao.action";
 import { adicionarMaterial } from "../actions/material.action";
 
 
-function CadastroMateriais() {
+function CadastroMateriais({ onMaterialAdicionado }: { onMaterialAdicionado: () => void }) {
   const [links, setLinks] = useState("")
   const [isPosting, setIsPosting] = useState(false)
 
@@ -27,6 +27,7 @@ function CadastroMateriais() {
       if (result?.success) {
         setLinks("");
         toast.success("Material adicionado!");
+        onMaterialAdicionado();
       }
     } catch (error) {
       toast.error("Falha ao adicionar o material!");

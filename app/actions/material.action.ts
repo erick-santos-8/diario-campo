@@ -21,3 +21,21 @@ export async function adicionarMaterial(links: string) {
     return { success: false, error: "Falha ao criar um material" }
   }
 }
+
+export async function getMateriais() {
+  try {
+    const userId = await getDbUserId();
+
+    if (!userId) return [];
+
+    const materiais = await prisma.materiais.findMany({
+      where: { authorId: userId },
+      orderBy: { links: "asc" }, // Ordena por dia da semana
+    });
+
+    return materiais;
+  } catch (error) {
+    console.error("Erro ao buscar materiais", error);
+    return [];
+  }
+}

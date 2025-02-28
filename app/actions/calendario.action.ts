@@ -44,3 +44,40 @@ export async function adicionarTarefaMes(tarefa: string, descricao: string, type
     return { success: false, error: "Falha ao criar uma tarefa" }
   }
 }
+
+export async function getCalendarioSemanal() {
+  try {
+    const userId = await getDbUserId();
+
+    if (!userId) return [];
+
+    const dias = await prisma.calendario_Semanal.findMany({
+      where: { authorId: userId },
+      orderBy: { type: "asc" }, // Ordena por dia da semana
+    });
+
+    return dias;
+  } catch (error) {
+    console.error("Erro ao buscar dias", error);
+    return [];
+  }
+}
+
+export async function getCalendarioMensal() {
+  try {
+    const userId = await getDbUserId();
+
+    if (!userId) return [];
+
+    const meses = await prisma.calendario_Mensal.findMany({
+      where: { authorId: userId },
+      orderBy: { type: "asc" }, // Ordena por mês
+    });
+
+    return meses;
+  } catch (error) {
+    console.error("Erro ao buscar calendário mensal", error);
+    return [];
+  }
+}
+
