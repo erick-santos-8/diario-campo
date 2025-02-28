@@ -6,13 +6,18 @@ function page() {
   return (
     <div>
       <Button variant="outline">
-        <Link href="/calendario_mensal">
-          <h1>Calendario Mensal</h1>
+        <Link href="/aulas">
+          <h1>Aulas</h1>
         </Link>
       </Button>
       <Button variant="outline">
-        <Link href="/calendario_semanal">
-          <h1>Calendario Semanal</h1>
+        <Link href="/plantoes">
+          <h1>Plantoes</h1>
+        </Link>
+      </Button>
+      <Button variant="outline">
+        <Link href="/reunioes">
+          <h1>Reunioes</h1>
         </Link>
       </Button>
     </div>

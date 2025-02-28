@@ -24,13 +24,13 @@ export async function adicionarTarefaDia(tarefa: string, descricao: string, type
   }
 }
 
-export async function adicionarTarefaMes(tarefa: string, descricao: string, type: "JANEIRO" | "FEVEREIRO" | "MARÇO" | "ABRIL" | "MAIO" | "JUNHO" | "AGOSTO" | "SETEMBRO" | "OUTUBRO" | "NOVEMBRO" | "DEZEMBRO") {
+export async function adicionarTarefaMes(tarefa: string, descricao: string, type: "JANEIRO" | "FEVEREIRO" | "MARÇO" | "ABRIL" | "MAIO" | "JUNHO" | "JULHO" | "AGOSTO" | "SETEMBRO" | "OUTUBRO" | "NOVEMBRO" | "DEZEMBRO") {
   try {
     const userId = await getDbUserId();
 
     if (!userId) return
 
-    const calendarioDia = await prisma.calendario_Semanal.create({
+    const calendarioMes = await prisma.calendario_Mensal.create({
       data: {
         authorId: userId,
         tarefa,
@@ -38,9 +38,9 @@ export async function adicionarTarefaMes(tarefa: string, descricao: string, type
         type
       }
     })
-    return { success: true, calendarioDia }
+    return { success: true, calendarioMes }
   } catch (error) {
-    console.error("Erro ao criar calendário semanal:", error);
+    console.error("Erro ao criar calendário mensal:", error);
     return { success: false, error: "Falha ao criar uma tarefa" }
   }
 }
