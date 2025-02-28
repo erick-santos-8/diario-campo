@@ -1,0 +1,120 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id      String  @id @default(cuid())
+  email   String  @unique
+  clerkId String  @unique
+  name    String?
+  image   String?
+
+  //Relations 
+  calendario_mensal  Calendario_Mensal[]
+  calendario_semanal Calendario_Semanal[]
+  anotacoes          Anotacoes[]
+  reunioes           Reunioes[]
+  plantoes           Plantoes[]
+  aulas              Aulas[]
+  materiais          Materiais[]
+}
+
+model Calendario_Mensal {
+  id        String                 @id @default(cuid())
+  authorId  String
+  type      Calendario_Mensal_Type
+  tarefa    String
+  descricao String
+
+  //Relations
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+enum Calendario_Mensal_Type {
+  JANEIRO
+  FEVEREIRO
+  MARÇO
+  ABRIL
+  MAIO
+  JUNHO
+  JULHO
+  AGOSTO
+  SETEMBRO
+  OUTUBRO
+  NOVEMBRO
+  DEZEMBRO
+}
+
+model Calendario_Semanal {
+  id        String                  @id @default(cuid())
+  authorId  String
+  type      Calendario_Semanal_Type
+  tarefa    String
+  descricao String
+
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+enum Calendario_Semanal_Type {
+  SEGUNDA
+  TERÇA
+  QUARTA
+  QUINTA
+  SEXTA
+}
+
+model Anotacoes {
+  id       String @id @default(cuid())
+  authorId String
+  titulo   String
+  conteudo String
+
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model Reunioes {
+  id       String   @id @default(cuid())
+  authorId String
+  titulo   String
+  data     DateTime
+
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model Plantoes {
+  id       String   @id @default(cuid())
+  authorId String
+  titulo   String
+  data     DateTime
+
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model Aulas {
+  id       String                  @id @default(cuid())
+  authorId String
+  titulo   String
+  horario  String
+  dia      Calendario_Semanal_Type
+
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model Materiais {
+  id       String @id @default(cuid())
+  authorId String
+  links    String
+
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}

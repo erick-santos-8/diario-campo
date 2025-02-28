@@ -1,4 +1,4 @@
-import { BellIcon, HomeIcon, UserIcon } from "lucide-react";
+import { BellIcon, BookOpenText, BookOpenTextIcon, Calendar1Icon, HomeIcon, UserIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { SignInButton, UserButton } from "@clerk/nextjs";
@@ -22,19 +22,15 @@ async function DesktopNavbar() {
       {user ? (
         <>
           <Button variant="ghost" className="flex items-center gap-2" asChild>
-            <Link href="/notifications">
-              <BellIcon className="w-4 h-4" />
-              <span className="hidden lg:inline">Notifications</span>
+            <Link href="/calendarios">
+              <Calendar1Icon className="w-4 h-4" />
+              <span className="hidden lg:inline">Calendarios</span>
             </Link>
           </Button>
           <Button variant="ghost" className="flex items-center gap-2" asChild>
-            <Link
-              href={`/profile/${
-                user.username ?? user.emailAddresses[0].emailAddress.split("@")[0]
-              }`}
-            >
-              <UserIcon className="w-4 h-4" />
-              <span className="hidden lg:inline">Profile</span>
+            <Link href="/atividades">
+              <BookOpenTextIcon className="w-4 h-4" />
+              <span className="hidden lg:inline">Atividades</span>
             </Link>
           </Button>
           <UserButton />

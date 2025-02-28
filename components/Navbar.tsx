@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { currentUser } from "@clerk/nextjs/server";
 import DesktopNavbar from "./DesktopNavbar";
+import { syncUser } from "@/app/actions/user.action";
 
 async function Navbar() {
   const user = await currentUser();
+  if (user) await syncUser();
 
   return (
     <nav className="sticky top-0 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
@@ -14,7 +16,7 @@ async function Navbar() {
               eDiário
             </Link>
           </div>
-          <DesktopNavbar/>
+          <DesktopNavbar />
         </div>
       </div>
     </nav>
