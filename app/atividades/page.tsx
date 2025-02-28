@@ -20,6 +20,16 @@ function page() {
           <h1>Reunioes</h1>
         </Link>
       </Button>
+      <Button variant="outline">
+        <Link href="/anotacoes">
+          <h1>Anotacoes</h1>
+        </Link>
+      </Button>
+      <Button variant="outline">
+        <Link href="/materiais">
+          <h1>Materiais</h1>
+        </Link>
+      </Button>
     </div>
   )
 }
