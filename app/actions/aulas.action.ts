@@ -23,3 +23,22 @@ export async function adicionarAula(titulo: string, horario: string, dia: "SEGUN
     return { success: false, error: "Falha ao criar uma aula" }
   }
 }
+
+
+export async function getAulas() {
+  try {
+    const userId = await getDbUserId();
+
+    if (!userId) return [];
+
+    const aulas = await prisma.aulas.findMany({
+      where: { authorId: userId },
+      orderBy: { dia: "asc" }, // Ordena por dia da semana
+    });
+
+    return aulas;
+  } catch (error) {
+    console.error("Erro ao buscar aulas:", error);
+    return [];
+  }
+}

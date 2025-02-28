@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { adicionarAnotacao } from "../actions/anotacao.action";
 
 
-function CadastroAnotacoes() {
+function CadastroAnotacoes({ onAnotacaoAdicionada }: { onAnotacaoAdicionada: () => void }) {
   const [titulo, setTitulo] = useState("")
   const [conteudo, setConteudo] = useState("")
   const [isPosting, setIsPosting] = useState(false)
@@ -28,6 +28,7 @@ function CadastroAnotacoes() {
         setTitulo("");
         setConteudo("");
         toast.success("Anotacao adicionada!");
+        onAnotacaoAdicionada()
       }
     } catch (error) {
       toast.error("Falha ao adicionar a anotacao!");

@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import { adicionarReuniao } from "../actions/reuniao.action";
 
 
-function CadastroReuniao() {
+function CadastroReuniao({ onReuniaoAdicionada }: { onReuniaoAdicionada: () => void }) {
   const [titulo, setTitulo] = useState("")
   const [data, setData] = useState("")
   const [isPosting, setIsPosting] = useState(false)
@@ -28,6 +28,7 @@ function CadastroReuniao() {
         setTitulo("");
         setData("");
         toast.success("Reuniao adicionada!");
+        onReuniaoAdicionada();
       }
     } catch (error) {
       toast.error("Falha ao adicionar a reuniao!");

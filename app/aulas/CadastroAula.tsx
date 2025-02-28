@@ -10,7 +10,7 @@ import React, { useState } from 'react'
 import { adicionarAula } from '../actions/aulas.action';
 import toast from 'react-hot-toast';
 
-function CadastroAula() {
+function CadastroAula({ onAulaAdicionada }: { onAulaAdicionada: () => void }) {
   const [titulo, setTitulo] = useState("")
   const [horario, setHorario] = useState("")
   const [dia, setDia] = useState("")
@@ -27,6 +27,7 @@ function CadastroAula() {
         setHorario("")
         setDia("")
         toast.success("Aula adicionada!")
+        onAulaAdicionada()
       }
     } catch (error) {
       toast.error("Falha ao adicionar a aula!")

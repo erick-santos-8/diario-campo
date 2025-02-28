@@ -10,17 +10,17 @@ import toast from "react-hot-toast";
 import { adicionarPlantao } from "../actions/plantao.action";
 
 
-function CadastroPlantao() {
-  const [titulo, setTitulo] = useState("")
-  const [data, setData] = useState("")
-  const [isPosting, setIsPosting] = useState(false)
+function CadastroPlantao({ onPlantaoAdicionado }: { onPlantaoAdicionado: () => void }) {
+  const [titulo, setTitulo] = useState("");
+  const [data, setData] = useState("");
+  const [isPosting, setIsPosting] = useState(false);
 
   const onHandleSubmit = async () => {
     if (!data || !titulo) return;
     setIsPosting(true);
 
     try {
-      const formattedDate = new Date(data); // Converte a string para Date
+      const formattedDate = new Date(data);
 
       const result = await adicionarPlantao(titulo, formattedDate);
 
@@ -28,6 +28,7 @@ function CadastroPlantao() {
         setTitulo("");
         setData("");
         toast.success("Plantão adicionado!");
+        onPlantaoAdicionado(); // Atualiza a lista na página principal
       }
     } catch (error) {
       toast.error("Falha ao adicionar o plantão!");
@@ -38,7 +39,6 @@ function CadastroPlantao() {
 
   return (
     <div>
-      <h1>Plantoes</h1>
       <Dialog>
         <DialogTrigger asChild>
           <Button variant="outline">Adicionar Plantao</Button>
@@ -46,9 +46,7 @@ function CadastroPlantao() {
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Adicionar plantão</DialogTitle>
-            <DialogDescription>
-              Adicione seus plantões por aqui
-            </DialogDescription>
+            <DialogDescription>Adicione seus plantões por aqui</DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
@@ -80,5 +78,7 @@ function CadastroPlantao() {
     </div>
   );
 }
+
+
 
 export default CadastroPlantao

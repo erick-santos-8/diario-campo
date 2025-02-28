@@ -22,3 +22,22 @@ export async function adicionarAnotacao(titulo: string, conteudo: string) {
     return { success: false, error: "Falha ao criar uma anotacao" }
   }
 }
+
+
+export async function getAnotacoes() {
+  try {
+    const userId = await getDbUserId();
+
+    if (!userId) return [];
+
+    const anotacoes = await prisma.anotacoes.findMany({
+      where: { authorId: userId },
+      orderBy: { titulo: "asc" }, // Ordena por dia da semana
+    });
+
+    return anotacoes;
+  } catch (error) {
+    console.error("Erro ao buscar anotacoes", error);
+    return [];
+  }
+}
